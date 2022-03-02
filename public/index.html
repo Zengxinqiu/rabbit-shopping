@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_2143783_iq6z4ey5vu.css">
+  <title>
+    <%= htmlWebpackPlugin.options.title %>
+  </title>
+
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+  </noscript>
+  <div id="app"></div>
+  <div id="dailog"></div>
+  <!-- built files will be auto injected -->
+  <!-- QQ第三方登录 -->
+  <script src="http://connect.qq.com/qc_jssdk.js" data-appid="100556005"
+    data-redirecturi="http://www.corho.com:8080/#/login/callback">
+
+
+    </script>
+  <script>
+    const res = QC.Login.check()
+    console.log('检查是否已经登录QQ', res)
+
+    // 获取当前登录QQ用户的Access token 以及 OpenId（用户唯一标识）
+    if (QC.Login.check()) {
+      QC.Login.getMe((openid, accessToken) => {
+        console.log({ openid, accessToken });
+      })
+    }
+
+    // 获取当前登录QQ用户的公开信息
+    if (QC.Login.check()) {
+      QC.api('get_user_info').success(res => {
+        console.log(res);
+      })
+    }
+  </script>
+</body>
+
+</html>
